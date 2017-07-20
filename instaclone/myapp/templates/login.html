@@ -1,0 +1,52 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Insta-Clone</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet"  type="text/css" media="screen" href="{% static "design.css" %}" />
+</head>
+<body>
+<div class="full2">
+	<div class="main">
+            <h2> Insta-Clone</h2>
+    </div>
+    <div class ="frm">
+        <form method="post">
+      {%csrf_token %}
+            {% if message == "Fill all the fields!" %}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                      Fill all the fields.
+            </div>
+            {% endif %}
+
+            {% if message == "Incorrect Password! Please try again!" %}
+                <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                      Incorrect Password! Please try again!
+            </div>
+            {% endif %}
+      <div>
+          <input id="username" type="text" name="username" placeholder="Username" value={{ username }}>
+      </div>
+
+      <div>
+          <input id="password" type="password" name="password" placeholder="password" value={{ password }}>
+      </div>
+
+      <input type="submit" value="Log In">
+
+    </form>
+</div>
+</div>
+
+    <div class="full3">Don't have an account? <a href="/">signup</a> </div>
+</body>
+</html>

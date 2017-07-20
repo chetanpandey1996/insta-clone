@@ -1,0 +1,88 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Insta-Clone</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet"  type="text/css" media="screen" href="{% static "design.css" %}" />
+</head>
+<body>
+    <form method="post" action="/post/">
+        {% csrf_token %}
+   <div class="createp" >
+        <input type="submit"value="Create Post">
+    </div>
+    </form>
+
+
+    {% for post in posts %}
+  <div class="pos">
+    <div id = "user_name">{{ post.user.username }}</div>
+        <img src="{{ post.image_url }}" /><br>
+
+       <form method="POST" action="/like/">
+              {% csrf_token %}
+              <input type="hidden" name="post" value="{{ post.id }}" />
+                {% if post.has_liked %}
+                <input type="submit" id ="lheart" value="">
+                {% else %}
+                <input type="submit" id="uheart" value="">
+                {% endif %}
+            </form>
+
+        <div class="comm">
+            <b>{{ post.like_count }} likes</b>
+        </div>
+
+      <span class="comm" ><b>{{ post.user.username }}</b> <span class="comm_txt">{{ post.caption }}</span></span><br><br>
+
+              <div class="comm">
+            {% for comment in post.comments %}
+                  <p><b>{{ comment.user.username }}<!-- [{{ comment.created_on }}]-->&nbsp;&nbsp;</b><span id="comm_txt"> {{ comment.comment_text }}</span></p>
+            {% endfor %}
+        </div>
+     <hr>
+        <div>
+            <form method="POST" action="/comment/">
+                {% csrf_token %}
+                <input type="hidden" name="post" value="{{ post.id }}" />
+                <input type="text" name="comment_text" id="comment_text" placeholder="Make a comment.." value="{{ comment_text }}">
+                <input type="submit" class="btn-default btn" value="Comment" style="display: none;">
+            </form>
+        </div>
+
+
+      </div>
+    {% endfor %}
+
+
+</body>
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+     <script type="text/javascript">
+         $(document).on('submit','#like_p',function(e){
+           e.preventDefault();
+
+          $.ajax({
+            type:'POST',
+            url:'/like/',
+               beforeSend: function(xhr, settings) {
+               if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+          success:function(){
+
+          }
+
+          });
+
+
+         });
+     </script>
+
+</html>
