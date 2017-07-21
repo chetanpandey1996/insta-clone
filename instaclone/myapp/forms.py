@@ -29,6 +29,12 @@ class LikeForm(forms.ModelForm):
         fields = ['post']
 
 
+class DownloadForm(forms.ModelForm):
+    class Meta:
+        model = PostModel
+        fields = ['image', 'caption']
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = CommentModel

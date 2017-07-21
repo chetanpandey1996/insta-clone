@@ -18,30 +18,57 @@ body{
  border:1px solid #ededed;
 }
 
+.createp{
+    margin: 10px auto auto 530px;
+}
+
 img{
   width: 550px;
   height: 600px;
-  margin:  30px auto 20px auto;
+  margin:  13px auto 10px auto;
 }
 #uheart{
-  background-image: url(/static/uheart.png");
-  background-repeat: no-repeat;
-  background-position: <left|right>;
-  padding-<left|right>: <width of image>px;
-
+  background-image: url("/static/img_file/uheart.png");
 }
 
 #lheart{
-background-image: url(C:/Acad_python/instaclone/static/lheart.png);
+background-image: url("/static/img_file/lheart.png");
+}
+
+#user_name{
+    margin: 13px auto auto 50px;
+    font-weight: bold;
+    font-size: 15px;
+}
+.comm_txt{
+font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+#lheart,#uheart{
 background-repeat: no-repeat;
-background-position: <left|right>;
-padding-<left|right>: <width of image>px;
+background-position: center;
+background-size: 25px 20px;
+background-color: #ffffff;
+width:10px;
+outline:none;
+margin: auto auto auto 10px;
+}
+
+#download{
+  background-image: url("/static/img_file/download_button.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 25px 20px;
+  background-color: #ffffff;
+  width:10px;
+  outline:none;
+  margin: auto auto auto 10px;
 }
 
 .comm{
-
   margin: auto auto auto 15px;
 }
+
 .pos{
   min-height:700;
   margin:  20px auto 50px 420px;
@@ -49,6 +76,7 @@ padding-<left|right>: <width of image>px;
   border:1px solid #ededed;
   background-color:#ffffff;
 }
+
 #comment_text{
   width:530px;
   margin: auto auto 10px auto;

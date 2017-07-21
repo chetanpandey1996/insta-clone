@@ -12,13 +12,12 @@
   <link rel="stylesheet"  type="text/css" media="screen" href="{% static "design.css" %}" />
 </head>
 <body>
-    <form method="post" action="/post/">
+    <form method="GET" action="/post/" enctype="multipart/form-data">
         {% csrf_token %}
    <div class="createp" >
         <input type="submit"value="Create Post">
     </div>
     </form>
-
 
     {% for post in posts %}
   <div class="pos">
@@ -33,6 +32,13 @@
                 {% else %}
                 <input type="submit" id="uheart" value="">
                 {% endif %}
+            </form>
+
+            <form method="POST" action="/download/">
+              {% csrf_token %}
+              <input type="hidden" name="post" value="{{ post.id }}" />
+              <input type="hidden" name="post1" value="{{ post.image_url }}" />
+                <input type="submit" id ="downloadimg" value="">
             </form>
 
         <div class="comm">
@@ -62,27 +68,5 @@
 
 
 </body>
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-
-     <script type="text/javascript">
-         $(document).on('submit','#like_p',function(e){
-           e.preventDefault();
-
-          $.ajax({
-            type:'POST',
-            url:'/like/',
-               beforeSend: function(xhr, settings) {
-               if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-        }
-          success:function(){
-
-          }
-
-          });
-
-
-         });
-     </script>
 
 </html>

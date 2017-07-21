@@ -19,7 +19,7 @@ body{
 }
 
 .createp{
-margin: 10px auto auto 500px;
+    margin: 10px auto auto 530px;
 }
 
 img{
@@ -28,11 +28,11 @@ img{
   margin:  13px auto 10px auto;
 }
 #uheart{
-  background-image: url("/static/img_file/uheart.png");
+  background-image: url("/static/img_file/download_button.png");
 }
 
 #lheart{
-background-image: url("/static/img_file/lheart.png");
+background-image: url("/static/img_file/download_button.png");
 }
 
 #user_name{
@@ -45,6 +45,17 @@ font-family:"Lucida Sans Unicode", "Lucida Grande", sans-serif;
 }
 
 #lheart,#uheart{
+background-repeat: no-repeat;
+background-position: center;
+background-size: 25px 20px;
+background-color: #ffffff;
+width:10px;
+outline:none;
+margin: auto auto auto 10px;
+}
+
+#downloadimg{
+background-image: url("/static/img_file/download_button.png");
 background-repeat: no-repeat;
 background-position: center;
 background-size: 25px 20px;

@@ -9,8 +9,8 @@ from imgurpython import ImgurClient
 from instaclone.settings import BASE_DIR
 from django.shortcuts import render, redirect
 from django.utils import timezone
-
-from forms import SignUpForm, LoginForm, PostForm, LikeForm, CommentForm
+import urllib
+from forms import SignUpForm, LoginForm, PostForm, LikeForm, CommentForm, DownloadForm
 from models import UserModel, SessionToken, PostModel, LikeModel, CommentModel
 from django.contrib.auth.hashers import make_password, check_password
 
@@ -79,7 +79,7 @@ def post_view(request):
                 post = PostModel(user=user, image=image, caption=caption)
                 post.save()
 
-                path = str(BASE_DIR +'/'+ post.image.url)
+                path = str(BASE_DIR + '/' + post.image.url)
 
                 client = ImgurClient(YOUR_CLIENT_ID, YOUR_CLIENT_SECRET)
                 post.image_url = client.upload_from_path(path, anon=True)['link']
@@ -126,6 +126,15 @@ def like_view(request):
     else:
         return redirect('/login/')
 
+
+def download_view(request):
+    user = check_validation(request)
+    if user and request.method == 'POST':
+        image_url = request.POST.get('post1')
+        image_name = request.POST.get('post')+".png"
+        urllib.urlretrieve(image_url, image_name)
+        return redirect('/feed/')
+    return redirect('/login/')
 
 def comment_view(request):
     user = check_validation(request)
