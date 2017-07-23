@@ -49,22 +49,41 @@ background-repeat: no-repeat;
 background-position: center;
 background-size: 25px 20px;
 background-color: #ffffff;
-width:10px;
 outline:none;
-margin: auto auto auto 10px;
+width:25px;
+margin: auto auto auto 5px;
 }
 
-#download{
-  background-image: url("/static/img_file/download_button.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 25px 20px;
-  background-color: #ffffff;
-  width:10px;
-  outline:none;
-  margin: auto auto auto 10px;
+.buttons{
+width:90px;
+height:35px
+}
+#downloadimg{
+background-image: url("/static/img_file/download_button.png");
+background-repeat: no-repeat;
+background-position: center;
+background-size: 25px 20px;
+background-color: #ffffff;
+outline:none;
+width:30px;
+margin:auto;
 }
 
+#searchin{
+background-image: url("/static/img_file/search.png");
+background-repeat: no-repeat;
+background-position: center;
+background-size: 25px 20px;
+background-color: #ffffff;
+outline:none;
+width:30px;
+margin:auto;
+}
+
+.tbutton{
+ border:1px solid #ededed;
+ height:auto;
+}
 .comm{
   margin: auto auto auto 15px;
 }

@@ -12,18 +12,36 @@
   <link rel="stylesheet"  type="text/css" media="screen" href="{% static "design.css" %}" />
 </head>
 <body>
+
+<div class="tbutton" >
+  <div class="createp" style="width:300px; float:right">
     <form method="GET" action="/post/" enctype="multipart/form-data">
         {% csrf_token %}
-   <div class="createp" >
         <input type="submit"value="Create Post">
+      </form>
     </div>
-    </form>
+<div style="width:350px; float:left">
+           <form method="POST" action="/feed/" >
+        {% csrf_token %}
+        <select name="dropdown1" style="width:200px;">
+            {% for i in drop %}
+               <option value="{{i}}">{{i}}</option>
+            {% endfor %}
+               <br><br><input type="submit" id ="searchin" value="">
+        </select>
+      </form>
+</div>
+</div>
 
     {% for post in posts %}
   <div class="pos">
     <div id = "user_name">{{ post.user.username }}</div>
         <img src="{{ post.image_url }}" /><br>
 
+
+
+     <div class="buttons">
+         <div style="float:left">
        <form method="POST" action="/like/">
               {% csrf_token %}
               <input type="hidden" name="post" value="{{ post.id }}" />
@@ -33,15 +51,19 @@
                 <input type="submit" id="uheart" value="">
                 {% endif %}
             </form>
-
+         </div>
+         <div style="float:right;">
             <form method="POST" action="/download/">
               {% csrf_token %}
               <input type="hidden" name="post" value="{{ post.id }}" />
               <input type="hidden" name="post1" value="{{ post.image_url }}" />
                 <input type="submit" id ="downloadimg" value="">
             </form>
+         </div>
+     </div>
 
-        <div class="comm">
+
+       <div class="comm">
             <b>{{ post.like_count }} likes</b>
         </div>
 

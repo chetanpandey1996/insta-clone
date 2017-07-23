@@ -28,11 +28,11 @@ img{
   margin:  13px auto 10px auto;
 }
 #uheart{
-  background-image: url("/static/img_file/download_button.png");
+  background-image: url("/static/img_file/uheart.png");
 }
 
 #lheart{
-background-image: url("/static/img_file/download_button.png");
+background-image: url("/static/img_file/lheart.png");
 }
 
 #user_name{
@@ -49,29 +49,48 @@ background-repeat: no-repeat;
 background-position: center;
 background-size: 25px 20px;
 background-color: #ffffff;
-width:10px;
 outline:none;
-margin: auto auto auto 10px;
+width:25px;
+margin: auto auto auto 5px;
 }
 
+.buttons{
+width:90px;
+height:35px
+}
 #downloadimg{
 background-image: url("/static/img_file/download_button.png");
 background-repeat: no-repeat;
 background-position: center;
 background-size: 25px 20px;
 background-color: #ffffff;
-width:10px;
 outline:none;
-margin: auto auto auto 10px;
+width:30px;
+margin:auto;
 }
 
+#searchin{
+background-image: url("/static/img_file/search.png");
+background-repeat: no-repeat;
+background-position: center;
+background-size: 25px 20px;
+background-color: #ffffff;
+outline:none;
+width:30px;
+margin:auto;
+}
+
+.tbutton{
+ border:1px solid #ededed;
+ height:auto;
+}
 .comm{
   margin: auto auto auto 15px;
 }
 
 .pos{
   min-height:700;
-  margin:  20px auto 50px 420px;
+  margin:  40px auto 50px 420px;
   width: 552px;
   border:1px solid #ededed;
   background-color:#ffffff;
