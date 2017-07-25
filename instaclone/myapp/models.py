@@ -30,7 +30,7 @@ class PostModel(models.Model):
     image = models.FileField(upload_to='user_images')
     image_url = models.CharField(max_length=255)
     caption = models.CharField(max_length=240)
-    interest = models.CharField(max_length= 50)
+    interest = models.CharField(max_length=50)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -41,6 +41,10 @@ class PostModel(models.Model):
     @property
     def comments(self):
         return CommentModel.objects.filter(post=self).order_by('-created_on')
+
+    @property
+    def upvote_count(self):
+        return len(UpvoteModel.objects.filter(post=self))
 
 
 class LikeModel(models.Model):
@@ -54,5 +58,13 @@ class CommentModel(models.Model):
     user = models.ForeignKey(UserModel)
     post = models.ForeignKey(PostModel)
     comment_text = models.CharField(max_length=555)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+
+class UpvoteModel(models.Model):
+    user = models.ForeignKey(UserModel)
+    post = models.ForeignKey(PostModel)
+    comment = models.ForeignKey(CommentModel)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)

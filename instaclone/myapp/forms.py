@@ -3,6 +3,7 @@ from models import UserModel
 from models import PostModel
 from models import LikeModel
 from models import CommentModel
+from models import UpvoteModel
 
 
 class SignUpForm(forms.ModelForm):
@@ -29,10 +30,10 @@ class LikeForm(forms.ModelForm):
         fields = ['post']
 
 
-class DownloadForm(forms.ModelForm):
+class UpvoteForm(forms.ModelForm):
     class Meta:
-        model = PostModel
-        fields = ['image', 'caption']
+        model = UpvoteModel
+        fields = ['comment', 'post']
 
 
 class CommentForm(forms.ModelForm):
