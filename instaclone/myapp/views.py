@@ -29,6 +29,13 @@ vec = ['car', 'truck', 'vehicle', 'shipment']
 
 drop = [' ', 'celebrity', 'bikes', 'vehicles', 'traveling', 'others', 'logos']
 
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
+
+sg = sendgrid.SendGridAPIClient(apikey='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')
+
+from_email = Email("chetan.pandey.779@outlook.com.com")
 
 def signup_view(request):
     if request.method == "POST":
@@ -38,10 +45,24 @@ def signup_view(request):
             name = form.cleaned_data['name']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
+            if len(username)<4:
+                form = "Us"
+                return render(request, 'index.html', {'form': form})
+            if len(password)<5:
+                form = "Ps"
+                return render(request, 'index.html', {'form': form})
             # saving data to DB
             user = UserModel(name=name, password=make_password(password), email=email, username=username)
             user.save()
-            return redirect('login/')
+            to_email = Email(email)
+            subject = "Insta-clone Community"
+            content = Content("text/plain", "Hi "+ username + " \n You have successfully signed-Up with insta-clone")
+            mail = Mail(from_email, subject, to_email, content)
+            response = sg.client.mail.send.post(request_body=mail.get())
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+            return render(request, 'sucess.html')
         else:
             form = "fillempty"
             return render(request, 'index.html', {'form': form})
@@ -49,9 +70,7 @@ def signup_view(request):
     return render(request, 'index.html', {'form': form})
 
 
-def login_view(request, *args, **kwargs):
-    print args
-    print kwargs
+def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -69,6 +88,8 @@ def login_view(request, *args, **kwargs):
                     return response
                 else:
                     form = 'Incorrect Password! Please try again!'
+            else:
+                form ='usernot'
         else:
             form = 'Fill all the fields!'
     elif request.method == 'GET':
@@ -187,9 +208,23 @@ def like_view(request):
         form = LikeForm(request.POST)
         if form.is_valid():
             post_id = form.cleaned_data.get('post').id
+            puser = request.POST.get('pusername')
+            pemail = request.POST.get('pemail')
             existing_like = LikeModel.objects.filter(post_id=post_id, user=user).first()
             if not existing_like:
                 LikeModel.objects.create(post_id=post_id, user=user)
+                print
+                print pemail
+                print puser
+
+                to_email = Email(pemail)
+                subject = "like"
+                content = Content("text/plain", "Hi ,\n "+ "  user - "+ user.username +" has liked your post.")
+                mail = Mail(from_email, subject, to_email, content)
+                response = sg.client.mail.send.post(request_body=mail.get())
+                print(response.status_code)
+                print(response.body)
+                print(response.headers)
             else:
                 existing_like.delete()
             return redirect('/feed/', {'drop': drop})
@@ -235,6 +270,15 @@ def comment_view(request):
             comment_text = form.cleaned_data.get('comment_text')
             comment = CommentModel.objects.create(user=user, post_id=post_id, comment_text=comment_text)
             comment.save()
+            comment = CommentModel.objects.filter(user=user, post_id=post_id, comment_text=comment_text).first()
+            to_email = Email(comment.post.user.email)
+            subject = "Insta-clone Community"
+            content = Content("text/plain", "Hi "+comment.post.user.username +",\n      "+ user.username+" has commented - "+comment_text+" on your post.")
+            mail = Mail(from_email, subject, to_email, content)
+            response = sg.client.mail.send.post(request_body=mail.get())
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
             return redirect('/feed/')
         else:
             return redirect('/feed/')

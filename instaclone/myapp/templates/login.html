@@ -33,6 +33,12 @@
                       Incorrect Password! Please try again!
             </div>
             {% endif %}
+             {% if message == "usernot" %}
+                <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                      Not a valid USER!
+            </div>
+            {% endif %}
       <div>
           <input id="username" type="text" name="username" placeholder="Username" value={{ username }}>
       </div>
